@@ -30,13 +30,13 @@ pipeline {
                         bat "${mvnHome}\\bin\\mvn clean package -DskipTests"
                     }
                 }
-=======
+
     steps {
         dir('JavaApp-CICD') {
             script {
                 def mvnHome = tool name: 'Maven-3.9', type: 'maven'
                 sh "${mvnHome}/bin/mvn clean package -DskipTests"
->>>>>>> a5ed9a2125d9db9483b2cec975f7c736cea51677
+
             }
         }
     }
