@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        DOCKERHUB_REPO = 'YOUR_DOCKERHUB_USERNAME/petclinic'
+        DOCKERHUB_REPO = 'samagyasapkota/petclinic'
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
     
