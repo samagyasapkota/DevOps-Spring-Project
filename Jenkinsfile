@@ -16,13 +16,15 @@ pipeline {
         }
         
         stage('Build Maven Project') {
-            steps {
-                dir('JavaApp-CICD') {
-                    sh 'mvn clean package -DskipTests'
-                }
+    steps {
+        dir('JavaApp-CICD') {
+            script {
+                def mvnHome = tool name: 'Maven-3.9', type: 'maven'
+                sh "${mvnHome}/bin/mvn clean package -DskipTests"
             }
         }
-        
+    }
+}
         stage('Build Docker Image') {
             steps {
                 script {
