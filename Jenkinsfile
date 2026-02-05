@@ -27,6 +27,7 @@ pipeline {
 }
         stage('Build Docker Image') {
             steps {
+                dir('JavaApp-CICD') { 
                 script {
                     sh "docker build -t ${DOCKERHUB_REPO}:${IMAGE_TAG} ."
                     sh "docker build -t ${DOCKERHUB_REPO}:latest ."
