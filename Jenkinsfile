@@ -21,7 +21,7 @@ pipeline {
         }
         
         stage('Build Maven Project') {
-<<<<<<< HEAD
+         HEAD
             steps {
                 dir('JavaApp-CICD') {
                     echo 'Building application with Maven...'
@@ -43,11 +43,11 @@ pipeline {
 }
         stage('Build Docker Image') {
             steps {
-<<<<<<< HEAD
+ HEAD
                 echo 'Building Docker image...'
-=======
+
                 dir('JavaApp-CICD') { 
->>>>>>> a5ed9a2125d9db9483b2cec975f7c736cea51677
+
                 script {
                     bat "docker build -t ${DOCKERHUB_REPO}:${IMAGE_TAG} ."
                     bat "docker build -t ${DOCKERHUB_REPO}:latest ."
