@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'staging',
-                    url: 'https://github.com/YOUR_GITHUB_USERNAME/DevOps-Spring-Project.git'
+                    url: 'https://github.com/samagyasapkota/DevOps-Spring-Project.git'
             }
         }
         
