@@ -33,6 +33,7 @@ pipeline {
                     sh "docker build -t ${DOCKERHUB_REPO}:latest ."
                 }
             }
+            }
         }
         
         stage('Push to DockerHub') {
