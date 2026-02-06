@@ -23,13 +23,6 @@ pipeline {
             }
         }
         
-        stage('Check Docker') {
-            steps {
-                sh 'docker --version'
-                sh 'docker ps'
-            }
-        }
-        
         stage('Build Docker Image') {
             steps {
                 script {
