@@ -18,11 +18,15 @@ pipeline {
         stage('Build Maven Project') {
             steps {
                 dir('JavaApp-CICD') {
-                    script {
-                        def mvnHome = tool name: 'Maven-3.9', type: 'maven'
-                        bat "${mvnHome}\\bin\\mvn clean package -DskipTests"
-                    }
+                    sh 'docker run --rm -v $(pwd):/app -w /app maven:3.9.9-eclipse-temurin-17 mvn clean package -DskipTests'
                 }
+            }
+        }
+        
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
+                sh 'docker ps'
             }
         }
         
