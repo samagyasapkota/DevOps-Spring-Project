@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         DOCKERHUB_REPO = 'samagyasapkota/petclinic'
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
-    
     stages {
         stage('Checkout') {
             steps {
@@ -14,22 +12,22 @@ pipeline {
                     url: 'https://github.com/samagyasapkota/DevOps-Spring-Project.git'
             }
         }
-        
         stage('Build Maven Project') {
-            steps {
-                dir('JavaApp-CICD') {
-                    sh 'docker run --rm -v $(pwd):/app -w /app maven:3.9.9-eclipse-temurin-17 mvn clean package -DskipTests'
-                }
+    steps {
+        dir('JavaApp-CICD') {
+            script {
+                def mvnHome = tool name: 'Maven-3.9', type: 'maven'
+                sh "${mvnHome}/bin/mvn clean package -DskipTests"
             }
         }
-        
+    }
+}
         stage('Check Docker') {
-            steps {
-                sh 'docker --version'
-                sh 'docker ps'
-            }
-        }
-        
+    steps {
+        sh 'docker --version'
+        sh 'docker ps'
+    }
+}
         stage('Build Docker Image') {
             steps {
                 script {
@@ -38,7 +36,6 @@ pipeline {
                 }
             }
         }
-        
         stage('Push to DockerHub') {
             steps {
                 script {
@@ -48,7 +45,6 @@ pipeline {
                 }
             }
         }
-        
         stage('Cleanup') {
             steps {
                 sh "docker rmi ${DOCKERHUB_REPO}:${IMAGE_TAG} || true"
@@ -56,8 +52,10 @@ pipeline {
             }
         }
     }
-    
     post {
+        always {
+            cleanWs()
+        }
         success {
             echo "✅ Pipeline executed successfully!"
             echo "Docker image: ${DOCKERHUB_REPO}:${IMAGE_TAG}"
